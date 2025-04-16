@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login page</title>
+    <link rel="stylesheet" href="signuppage.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+
+    <!--left tit-->
+    <div class="left">
+      <h1>Welcome<br>Back!</h1>
+      <p>"Simplify your laundry experience with ease and convenience."</p>
+    </div>
+
+    <!--right tit-->
+    <div class="right">
+
+      <h1>Log In</h1>
+
+            <!--login-->
+
+      <div class="login">
+        <p>Haven't got an account? <a href="signup.html">Sign Up Now!</a></p>
+      </div>
+
+    <!--forms-->
+
+      <form action="log.php" method="POST">
+
+        <div class="input-field">
+            <input type="text" name="name" placeholder="Username" required>
+          </div>
+        <div class="input-field">
+          <input type="password" name="password" placeholder="Create Password" required>
+        </div>
+        <button class="signup-btn" type="submit">Login</button>
+      </form>
+
+    </div>
+  </div>
+</body>
+</html>

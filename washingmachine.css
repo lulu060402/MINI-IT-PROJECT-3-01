@@ -1,0 +1,48 @@
+ body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+    }
+    .machines {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .machine {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .status-light {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+    }
+    .available {
+      background-color: green;
+    }
+    .in-use {
+      background-color: red;
+    }
+    .timer-input {
+      margin: 10px 0;
+    }
+    button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #00AFF0;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .countdown {
+      margin-top: 10px;
+      font-weight: bold;
+    }

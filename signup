@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup Page</title>
+  <link rel="stylesheet" href="signpage.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="overlay">
+        <h1>Create your<br>Free Account</h1>
+        <p>Share your artwork and Get project!</p>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="form-box">
+        <div class="top">
+          <p>Sign up</p>
+          <small>Already have an account? <a href="#">Sign In</a></small>
+        </div>
+
+        <div class="toggle">
+          <button class="active">Projects</button>
+          <button>Designs</button>
+        </div>
+
+        <form action="#">
+          <label>Email</label>
+          <input type="email" placeholder="Enter your email" required />
+
+          <label>Password</label>
+          <input type="password" placeholder="Enter your password" required />
+
+          <label>Select Skills</label>
+          <input type="text" placeholder="Type to search..." />
+
+          <div class="tags">
+            <span>Illustration ✕</span>
+            <span>Branding ✕</span>
+          </div>
+
+          <button type="submit" class="main-btn">Create an Account</button>
+
+          <button type="button" class="google-btn">
+            <img src="https://img.icons8.com/color/16/000000/google-logo.png" />
+            Sign up with Google
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
