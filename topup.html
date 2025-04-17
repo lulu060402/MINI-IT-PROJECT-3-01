@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Top-Up Page</title>
+  <link rel="stylesheet" href="topup.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Top-Up Balance</h1>
+
+    <div class="balance">
+      Current Balance: <strong>RM <?php echo number_format($_SESSION['balance'], 2); ?></strong>
+    </div>
+
+    <form action="process_topup.php" method="POST">
+      <label for="amount">Enter amount to top up (RM):</label>
+      <input type="number" name="amount" id="amount" min="5" required />
+      <button type="submit">Top Up</button>
+
+       <!-- Choose payment method -->
+       <div class="payment-methods">
+        <label>Choose payment method:</label><br>
+        <input type="radio" name="payment_method" value="bank_transfer" id="bank_transfer" required>
+        <label for="bank_transfer">Bank Transfer</label><br>
+
+        <input type="radio" name="payment_method" value="grabpay" id="grabpay">
+        <label for="grabpay">GrabPay</label><br>
+
+        <input type="radio" name="payment_method" value="paypal" id="paypal">
+        <label for="paypal">PayPal</label><br>
+      </div>
+    </form>
+
+    <?php if (isset($_SESSION['message'])): ?>
+      <div class="message"><?php echo $_SESSION['message']; unset($_SESSION['message']); ?></div>
+    <?php endif; ?>
+  </div>
+
+</body>
+</html>
+
