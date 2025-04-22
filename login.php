@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup page</title>
+    <title>login page</title>
     <link rel="stylesheet" href="signuppage.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -13,34 +15,32 @@
 
     <!--left tit-->
     <div class="left">
-      <h1>Create Your Free Account</h1>
+      <h1>Welcome<br>Back!</h1>
       <p>"Simplify your laundry experience with ease and convenience."</p>
     </div>
 
     <!--right tit-->
     <div class="right">
 
-      <h1>Sign Up</h1>
+      <h1>Log In</h1>
 
             <!--login-->
 
       <div class="login">
-        <p>Already have an account? <a href="login.html">Log in</a></p>
+        <p>Haven't got an account? <a href="signup.php">Sign Up Now!</a></p>
       </div>
 
     <!--forms-->
 
-      <form action="register.php" method="POST">
+      <form action="log.php" method="POST">
+
         <div class="input-field">
-          <input type="text" name="name" placeholder="Username" required>
-        </div>
+            <input type="email" name="email" placeholder="Email" required>
+          </div>
         <div class="input-field">
-          <input type="email" name="email" placeholder="Your Email" required>
+          <input type="password" name="password" placeholder="Password" required>
         </div>
-        <div class="input-field">
-          <input type="password" name="password" placeholder="Create Password" required>
-        </div>
-        <button class="signup-btn" type="submit">Create an Account</button>
+        <button class="signup-btn" type="submit">Login</button>
       </form>
 
     </div>
