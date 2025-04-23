@@ -3,7 +3,7 @@ include 'functions.php';
 $machine_id = intval($_GET['id']);
 $machine = getMachine($machine_id);
 
-// Handle Start with selected duration
+// start with selected duration
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['duration'])) {
     startMachine($machine_id, intval($_POST['duration']));
     header("Location: control.php?id=$machine_id");
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['duration'])) {
         <h1><?= htmlspecialchars($machine['name']) ?></h1>
         
         <?php if ($machine['status'] != 'available'): ?>
-            <!-- Show timer if in use -->
+            <!-- show timer -->
             <div class="timer">
                 <?php if ($machine['status'] == 'ready_to_collect'): ?>
                     <p>Status: <span class="ready-text">Ready to Collect!</span></p>
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['duration'])) {
                 <?php endif; ?>
             </div>
         <?php else: ?>
-            <!-- Duration selection form -->
+            <!-- select duration -->
             <form method="POST">
                 <label for="duration">Select Wash Duration (minutes):</label>
                 <select name="duration" id="duration" required>
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['duration'])) {
             </form>
         <?php endif; ?>
         
-        <!-- Collect button appears only when ready -->
+        <!-- collect button -->
         <?php if ($machine['status'] == 'ready_to_collect'): ?>
             <form method="POST" action="collect.php?id=<?= $machine['id'] ?>">
                 <button type="submit" class="collect-btn">Collect Clothes</button>
