@@ -1,0 +1,89 @@
+/* machine slots */
+body { 
+    font-family: Arial, sans-serif; 
+    padding: 20px;
+    line-height: 1.6;
+}
+.machine { 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.available { 
+    background: #e8f5e9; 
+    border: 1px solid #2e7d32; 
+}
+.in_use { 
+    background: #ffebee; 
+    border: 1px solid #c62828; 
+}
+
+/* dashboard  */
+.machines { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 15px; 
+}
+.control-link { 
+    display: inline-block; 
+    margin-top: 10px; 
+    color: #1565c0; 
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* controls  */
+.control-panel { 
+    max-width: 400px; 
+    margin: 40px auto; 
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.start-btn { 
+    background: #2e7d32; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer;
+    font-size: 16px;
+}
+.back-link { 
+    display: block; 
+    margin-top: 20px; 
+    color: #333;
+    text-decoration: none;
+}
+.collect-btn {
+    background: #ff9800; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.collect-btn:hover {
+    background: #e65100;
+}
+.ready_to_collect {
+    background: #fff3e0;  
+    border: 1px solid #fb8c00;  
+}
+/* duration */
+select#duration {
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.ready-text {
+    color: #ff9800;
+    font-weight: bold;
+}
