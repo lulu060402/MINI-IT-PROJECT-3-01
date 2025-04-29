@@ -42,6 +42,7 @@
         <?php unset($_SESSION['success']); ?>
       <?php endif; ?>
 
+
     <!--form-->
 
       <form action="register.php" method="POST">    

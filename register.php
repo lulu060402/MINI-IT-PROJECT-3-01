@@ -33,7 +33,7 @@ try {
 
         } elseif (strlen($password) < 8) {
             $error = 'Password must be at least 8 characters long.';
-            
+
         } else {
 
             $stmt = $pdo->prepare("SELECT * FROM users WHERE name = ? OR email = ?");
