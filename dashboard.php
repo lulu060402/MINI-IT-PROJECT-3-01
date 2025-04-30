@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Machine Status</h1>
+    <h1>Machine Status </h1>
     <div class="machines">
         <?php 
         $result = getMachines();
@@ -20,7 +20,6 @@
                     <?= match($current_status) {
                         'ready_to_collect' => 'Ready to Collect',
                         'in_use' => 'In Use ('.max(0, round((strtotime($machine['timer_end']) - time()) / 60)).' mins left)',
-                        'paused' => 'Paused ('.$machine['remaining_minutes'].' mins remaining)',
                         default => 'Available'
                     } ?>
                 </p>
@@ -30,7 +29,9 @@
                         <button type="submit" class="collect-btn">Collect Clothes</button>
                     </form>
                 <?php elseif ($machine['status'] == 'available'): ?>
-                    <p>Scan QR code to start</p>
+                    <a href="control.php?id=<?= $machine['id'] ?>" class="control-link">
+                        Start Wash
+                    </a>
                 <?php endif; ?>
             </div>
         <?php endwhile; ?>
