@@ -11,8 +11,10 @@
         <?php 
         $result = getMachines();
         while ($machine = $result->fetch_assoc()): 
-            $is_ready = ($machine['status'] == 'in_use' && time() > strtotime($machine['timer_end']));
-            $current_status = $is_ready ? 'ready_to_collect' : $machine['status'];
+            // Determine current status
+            $status = $machine['status'];
+            $is_ready = ($status == 'in_use' && time() > strtotime($machine['timer_end']));
+            $current_status = $is_ready ? 'ready_to_collect' : $status;
         ?>
             <div class="machine <?= $current_status ?>">
                 <h3><?= $machine['name'] ?></h3>
@@ -28,7 +30,7 @@
                     <form method="POST" action="collect.php?id=<?= $machine['id'] ?>">
                         <button type="submit" class="collect-btn">Collect Clothes</button>
                     </form>
-                <?php elseif ($machine['status'] == 'available'): ?>
+                <?php elseif ($status == 'available'): ?>
                     <a href="control.php?id=<?= $machine['id'] ?>" class="control-link">
                         Start Wash
                     </a>
@@ -36,7 +38,9 @@
             </div>
         <?php endwhile; ?>
     </div>
-    <!-- refresh every 20 sec -->
+=======
+    <!-- auto refresh every 20 second -->
+>>>>>>> parent of e073eb5 (simple fixes)
     <script>setTimeout(() => location.reload(), 20000);</script>
 </body>
 </html>
