@@ -25,14 +25,6 @@ if (isset($_SESSION['user_id'])) {
       <p>"Simplify your laundry experience with ease and convenience."</p>
     </div>
 
-    <?php if (isset($_GET['error'])): ?>
-            <?php if ($_GET['error'] === 'password'): ?>
-                <div class="error">Incorrect password. Please try again.</div>
-            <?php elseif ($_GET['error'] === 'email'): ?>
-                <div class="error">No account found with this email.</div>
-            <?php endif; ?>
-        <?php endif; ?>
-
     <!--right tit-->
     <div class="right">
 
@@ -44,6 +36,16 @@ if (isset($_SESSION['user_id'])) {
         <p>Haven't got an account? <a href="signup.php">Sign Up Now!</a></p>
       </div>
 
+      <div class="errorcon">
+    <?php if (isset($_GET['error'])): ?>
+            <?php if ($_GET['error'] === 'password'): ?>
+              <p style="color: red;">Incorrect password. Please try again.</p>
+            <?php elseif ($_GET['error'] === 'email'): ?>
+              <p style="color: red;">No account found with this email.</p>
+            <?php endif; ?>
+        <?php endif; ?>
+      
+            </div>
     <!--forms-->
 
       <form action="log.php" method="POST">
@@ -56,6 +58,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <button class="signup-btn" type="submit">Login</button>
       </form>
+
 
     </div>
   </div>

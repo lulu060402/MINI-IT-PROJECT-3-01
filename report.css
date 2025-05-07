@@ -4,7 +4,7 @@
 }
 
 .bg-img {
-    background-image: url(pexels-ekaterinabelinskaya-4700400.jpg) ;
+    background: url("stuckwm.jpg") ;
     background-repeat:no-repeat;
     background-size:cover;
     height:120vh ;
@@ -80,8 +80,8 @@ body {
     margin: 40px auto;
     padding: 30px;
     padding-right:55px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -215,5 +215,55 @@ select:focus {
     .radio-group {
         flex-direction: column;
         gap: 10px;
+    }
+}
+
+                                              /*footer*/
+  footer {
+    background: linear-gradient( 90deg,
+    #2ec7ff 10%,
+    #09b5f4 50%,
+    #00bbff 70%,
+    #018CF1 100%
+      );
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom:3px;
+    font-size: 15px;
+
+}
+
+
+.ka a {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.ka a:hover {
+    color:#1586af;
+}
+
+@media screen and (max-width:600px) {
+
+    footer {
+        padding-top: 13px;
+        padding-bottom:13px;
+        font-size: 12px;
+    }
+    .ka a {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width:450px) {
+
+    footer {
+        padding-top: 11px;
+        padding-bottom:11px;
+        font-size: 9px;
+    }
+    .ka a {
+        font-size: 9px;
     }
 }

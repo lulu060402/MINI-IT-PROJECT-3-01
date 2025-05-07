@@ -2,7 +2,7 @@
 session_start();
 
 // connect sql
-$conn = mysqli_connect("localhost", "root", "", "logindb");
+$conn = mysqli_connect("localhost", "root", "", "server_db");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
@@ -21,7 +21,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
     
     if (password_verify($password, $row['password'])) {
-        // yayy correct de
+        // yayy correct deyh
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['username'] = $row['name'];
         //go dashboard
