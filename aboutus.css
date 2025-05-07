@@ -1,0 +1,156 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Montserrat', sans-serif;
+    user-select: none; 
+    -webkit-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+}
+
+body {
+    background-color: #f2f9ff;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+}
+
+
+header {
+
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    background: url("hotgurl.jpg");
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: 2560px 1440px;
+
+}
+
+header h4 {
+    color:#018CF1;
+
+}
+
+header h1 {
+
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    color:#ffffff;
+    font-weight:900 ;
+    
+}
+
+header p {
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #d2d2d2  ;
+}
+
+
+.about-section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #00AFF0;
+    font-size: 2rem;
+}
+
+.story-card, .features-card, .benefits-card {
+    background: #f2f9ff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+h3 {
+    color: #00AFF0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.feature {
+    flex-basis: 30%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #00AFF0;
+    margin-bottom: 15px;
+}
+
+.benefits-list {
+    list-style-type: none;
+}
+
+.benefits-list li {
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.benefits-list li:before {
+    content: "✓";
+    color: #00AFF0;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.backsection {
+    text-align: center;
+    padding: 60px 0;
+    background: linear-gradient(135deg, #00AFF0, #018CF1);
+    color: white;
+}
+
+.back-butt {
+    display: inline-block;
+    background: white;
+    color: #00AFF0;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.back-butt:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 768px) {
+    .feature {
+        flex-basis: 100%;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+}

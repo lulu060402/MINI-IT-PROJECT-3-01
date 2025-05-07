@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions</title>
+    <link rel="stylesheet" href="t&c.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+   
+    <main class="terms">
+        <div class ="container>">
+        <div class ="terms-box">
+            <div class ="terms-text">
+            
+        <h1>Terms and Conditions</h1>
+        <p>Welcome to DryFans! These terms and conditions outline the rules and regulations for the use of our website.</p>
+
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing or using our DRYFANS web application ("Service"), you agree to comply with and be bound by these Terms and Conditions. If you do not agree, please refrain from using the Service.</p>
+
+        <h2>2. Account Registration</h2>
+        <ul>
+            <li>You must provide accurate and complete information when creating an account.</li>
+            <li>You are responsible for maintaining the confidentiality of your login credentials.</li>
+            <li>You must notify us immediately of any unauthorized account use.</li>
+        </ul>
+
+        <h2>3. Service Usage</h2>
+        <ul>
+            <li>The Service allows users to schedule laundry pickups, track orders, and make payments.</li>
+            <li>You agree to provide correct details regarding laundry items (quantity, type, special instructions).</li>
+            <li>Any misuse, fraud, or abuse of the Service may result in account suspension.</li>
+        </ul>
+
+        <h2>4.Cancellation & Refunds</h2>
+        <ul>
+        <li>Orders can be canceled before pickup, subject to applicable cancellation fees.</li>
+        <li>No refunds will be issued after laundry processing has begun unless due to service failure.</li>
+        </ul>
+
+        <h2>5. Liability & Damages</h2>
+        <p>5.1 We take utmost care in handling laundry but are not liable for:</p>
+        <ul>
+            <li>Damage due to fabric defects, pre-existing wear, or improper labeling.</li>
+            <li>Loss of items not recorded at pickup.</li>
+        </ul>
+        <p>5.2 Claims must be reported within 24 hours of delivery.</p>
+
+        <h2>6. Privacy Policy</h2>
+        <ul>
+            <li>Your personal data is collected for service purposes only.</li>
+            <li>We do not sell or share your information with third parties without consent, except as required by law.</li>
+        </ul>
+
+        <h2>7. Rewards & Loyalty Program</h2>
+        <p>7.1 Eligibility & Enrollment</p>
+            <ul>
+                
+            <li>Users automatically enroll in the rewards program upon account creation.</li>
+            
+            <li>The program may offer points, discounts, or promotional benefits ("Rewards") based on eligible transactions.</li>
+            </ul>
+            
+            <p>7.2 Earning Rewards</p>
+            <ul>
+            <li>Rewards are earned on qualifying purchases as per the current promotions.</li>
+            
+            <li>The company reserves the right to modify or disqualify certain transactions from earning Rewards.</li>
+            </ul>
+            <p>7.3 Redeeming Rewards</p>
+            <ul>
+            <li>Rewards can be redeemed as discounts on future orders, subject to applicable terms.</li>
+            
+            <li>Some restrictions may apply (e.g., minimum order value, expiry dates).</li>
+            </ul>
+            
+            <p>7.4 Expiration & Forfeiture</p>
+            <ul>
+            <li>Unused Rewards may expire after a specified period 3 months.</li>
+            
+            <li>The company may revoke Rewards in cases of fraud, account misuse, or service termination.</li>
+            </ul>
+            
+            <p>7.5 Program Changes</p>
+            <ul>
+                <li>We may modify, suspend, or terminate the Rewards Program at any time without prior notice.</li>
+            </ul>
+            
+            <h2>8.Changes to Terms </h2>
+            <ul>
+                <li>We may update these Terms & Conditions. Continued use constitutes acceptance of changes.</li>
+            </ul>
+
+            <h2>9. Governing Law</h2>
+            <ul>
+                <li>These terms are governed by the Malaysian laws . Any disputes shall be resolved in its courts.</li>
+            </ul>
+
+            <h4>I Agree To The <span>Terms And Conditions</span>And I Read The Privacy.Notice</h4>
+            <div class="checkbox">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">I agree to the terms and conditions</label></div><br>
+               
+            </div>
+            <div class="button">
+                <button class="btn red-btn" type="button" onclick="acceptTerms()">Accept</button>
+                <button class="btn grey-btn" type="button" onclick="window.location.href='logout.php'">Decline</button>
+            </div><br><br>
+            
+            </div>
+          </div>
+          <script>
+            function acceptTerms() {
+                if (document.getElementById('terms').checked) {
+                    window.location.href = 'dashboard.php';
+                } else {
+                    alert('Please agree to the terms and conditions first');
+                }
+            }
+        </script>
+    </main>
+    <footer>
+            
+        <div class="ka">
+        <p>Copyright &copy; 2025 DryFans. Mini It Project Group 3-01. All rights reserved. <a href="termscondition.html">Terms And Conditions</a></p>
+        </div>
+    </footer>
+</body>
+</html>
+

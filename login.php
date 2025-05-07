@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header("Location: dashboard.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,21 +33,32 @@
             <!--login-->
 
       <div class="login">
-        <p>Haven't got an account? <a href="signup.html">Sign Up Now!</a></p>
+        <p>Haven't got an account? <a href="signup.php">Sign Up Now!</a></p>
       </div>
 
+      <div class="errorcon">
+    <?php if (isset($_GET['error'])): ?>
+            <?php if ($_GET['error'] === 'password'): ?>
+              <p style="color: red;">Incorrect password. Please try again.</p>
+            <?php elseif ($_GET['error'] === 'email'): ?>
+              <p style="color: red;">No account found with this email.</p>
+            <?php endif; ?>
+        <?php endif; ?>
+      
+            </div>
     <!--forms-->
 
       <form action="log.php" method="POST">
 
         <div class="input-field">
-            <input type="text" name="name" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
           </div>
         <div class="input-field">
-          <input type="password" name="password" placeholder="Create Password" required>
+          <input type="password" name="password" placeholder="Password" required>
         </div>
         <button class="signup-btn" type="submit">Login</button>
       </form>
+
 
     </div>
   </div>

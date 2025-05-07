@@ -25,23 +25,43 @@
             <!--login-->
 
       <div class="login">
-        <p>Already have an account? <a href="login.html">Log in</a></p>
+        <p>Already have an account? <a href="login.php">Log in</a></p>
       </div>
 
-    <!--forms-->
+      <!--debugg-->
 
-      <form action="register.php" method="POST">
+      <?php 
+      session_start();
+      if (!empty($_SESSION['error'])): ?>
+        <p style="color: red;"><?php echo htmlspecialchars($_SESSION['error']); ?></p>
+        <?php unset($_SESSION['error']); ?>
+      <?php endif; ?>
+
+      <?php if (!empty($_SESSION['success'])): ?>
+        <p style="color: green;"><?php echo $_SESSION['success']; ?></p>
+        <?php unset($_SESSION['success']); ?>
+      <?php endif; ?>
+
+
+    <!--form-->
+
+      <form action="register.php" method="POST">    
+
         <div class="input-field">
           <input type="text" name="name" placeholder="Username" required>
+
         </div>
+
         <div class="input-field">
           <input type="email" name="email" placeholder="Your Email" required>
+
         </div>
         <div class="input-field">
           <input type="password" name="password" placeholder="Create Password" required>
         </div>
         <button class="signup-btn" type="submit">Create an Account</button>
       </form>
+
 
     </div>
   </div>
