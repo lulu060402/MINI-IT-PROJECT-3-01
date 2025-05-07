@@ -1,4 +1,6 @@
-<?php include 'functions.php'; ?>
+<?php 
+include 'functions.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +9,6 @@
 </head>
 <body>
     <h1>Machine Control Panel</h1>
-    <?php if (isset($_GET['error']) && $_GET['error'] == 'resume_failed'): ?>
-        <div class="error-message">Failed to resume machine. Please try again.</div>
-    <?php endif; ?>
-    
     <div class="machines">
         <?php 
         $machines = getMachines();
