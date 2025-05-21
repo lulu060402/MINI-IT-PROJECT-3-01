@@ -28,31 +28,40 @@
         <p>Already have an account? <a href="login.php">Log in</a></p>
       </div>
 
-    <!--forms-->
+      <!--debugg-->
+
+      <?php 
+      session_start();
+      if (!empty($_SESSION['error'])): ?>
+        <p style="color: red;"><?php echo htmlspecialchars($_SESSION['error']); ?></p>
+        <?php unset($_SESSION['error']); ?>
+      <?php endif; ?>
+
+      <?php if (!empty($_SESSION['success'])): ?>
+        <p style="color: green;"><?php echo $_SESSION['success']; ?></p>
+        <?php unset($_SESSION['success']); ?>
+      <?php endif; ?>
+
+
+    <!--form-->
 
       <form action="register.php" method="POST">    
 
-      <?php
-if (isset($_GET['error']) && $_GET['error'] === 'username') {
-    echo '<p style="color:red;">That username is taken!</p>';
-}
-
-if (isset($_GET['success'])) {
-    echo '<p style="color:green;">Account created successfully!</p>';
-}
-?>
-
         <div class="input-field">
           <input type="text" name="name" placeholder="Username" required>
+
         </div>
+
         <div class="input-field">
           <input type="email" name="email" placeholder="Your Email" required>
+
         </div>
         <div class="input-field">
           <input type="password" name="password" placeholder="Create Password" required>
         </div>
         <button class="signup-btn" type="submit">Create an Account</button>
       </form>
+
 
     </div>
   </div>

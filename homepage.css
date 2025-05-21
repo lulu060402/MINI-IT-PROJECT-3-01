@@ -114,6 +114,62 @@ body {
       }   
   }
 
+
+.bar {
+    background-color: rgba(41, 41, 48, 0.8); 
+    padding: 5px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    gap: 10px;
+}
+
+.bar li {
+    color: rgb(221, 216, 216);
+    line-height:1.2;
+    font-weight: 100;
+}
+
+.bar a {
+    color: #0377ca;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.bar a:hover {
+    color: #025fa2;
+}
+
+.bar h4 {
+    margin: 0; 
+    font-size: 13px; 
+}
+
+@media screen and (max-width: 600px) {
+    .bar {
+        padding: 3px 20px;
+    }
+    .bar li {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .bar {
+        padding: 1px 15px;
+    }
+    .bar li {
+        font-size: 7px;
+    }
+}
+
                                         /* Main Character */
 
   .main {
