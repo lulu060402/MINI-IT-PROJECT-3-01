@@ -186,3 +186,29 @@ select#duration {
     margin-left: 15px;
     font-size: 0.9em;
 }
+/* Report System  */
+.success-message {
+    color: #4CAF50;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.error-message {
+    color: #f44336;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.upload-label {
+    display: block;
+    margin: 10px 0;
+    color: #888;
+}
+
+input[type="file"] {
+    border: none;
+    padding: 0;
+    color: white;
+}
