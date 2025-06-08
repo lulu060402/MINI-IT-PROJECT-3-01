@@ -1,38 +1,76 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $db_server = "localhost";
-    $db_user = "root";
-    $db_password = "";
-    $db_name = "logindb";
+$host = 'localhost';
+$dbname = 'server_db';
+$name = 'root'; 
+$password = ''; 
 
-    $conn = mysqli_connect($db_server, $db_user, $db_password, $db_name);
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+$error = '';
+$success = '';
+
+try {
+    
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $name, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $name = trim($_POST['name']);
+        $email = trim($_POST['email']);
+        $password = $_POST['password'];
+
+
+        if (empty($name) || empty($email) || empty($password)) {
+            $error = 'Please fill in all fields.';
+
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error = 'Please enter a valid email address.';
+
+        } elseif (strlen($password) < 8) {
+            $error = 'Password must be at least 8 characters long.';
+
+        } else {
+
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE name = ? OR email = ?");
+            $stmt->execute([$name, $email]);
+            $existingUser = $stmt->fetch();
+
+            if ($existingUser) {
+                $error = 'Username or email already exists.';
+            } else {
+
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+
+                $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+                $stmt->execute([$name, $email, $hashedPassword]);
+
+
+                $success = 'Registration successful! You can now <a href="login.php">login</a>.';
+                
+
+            }
+        }
     }
+} catch (PDOException $e) {
+    $error = 'Database error: ' . $e->getMessage();
+} catch (Exception $e) {
+    $error = 'Error: ' . $e->getMessage();
+}
 
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
 
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+if (!empty($error) || !empty($success)) {
 
-    $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
 
-    try {
-        mysqli_query($conn, $sql);
-        header("Location: signup.php?success=1");
-        exit();
-    } catch (mysqli_sql_exception $e) {
-        header("Location: signup.php?error=username");
-        exit();
-    }
-
-    mysqli_close($conn);
-
-} else {
-    header("Location: signup.php");
+    session_start();
+    $_SESSION['error'] = $error;
+    $_SESSION['success'] = $success;
+    header('Location: signup.php');
     exit();
 }
 ?>

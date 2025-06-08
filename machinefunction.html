@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Washing Machine</title>
+  <link rel="stylesheet" href="machineslot.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>DryFans</h1>
+  <div class="machines" id="machines"></div>
+
+  <script>
+    const machinesContainer = document.getElementById('machines');
+    /*blueprint*/
+    function createMachine(id) {
+      const machine = document.createElement('div');
+      machine.classList.add('machine');
+      machine.innerHTML = `
+        <div id="light-${id}" class="status-light available"></div>
+        <div class="machine-label">Washing Machine ${id + 1}</div>
+        <button onclick="startMachine(${id})" id="start-btn-${id}">Start</button>
+        <div class="countdown" id="countdown-${id}">Available</div>
+        <button onclick="collecting(${id})" id="collect-btn-${id}" class="collect-btn" style="display: none;">Collected</button>
+      `;
+      machinesContainer.appendChild(machine);
+    }
+    /*timer*/
+    function startMachine(id) {
+      const light = document.getElementById(`light-${id}`);
+      const countdown = document.getElementById(`countdown-${id}`);
+      const startBtn = document.getElementById(`start-btn-${id}`);
+      const collectBtn = document.getElementById(`collect-btn-${id}`);
+  
+      if (light.classList.contains('in-use') || light.classList.contains('ready')) return;
+  
+      let seconds = 1 * 60;
+  
+      light.classList.remove('available');
+      light.classList.add('in-use');
+      countdown.textContent = `1:00 remaining`;
+  
+      const interval = setInterval(() => {
+        seconds--;
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        countdown.textContent = `${mins}:${secs.toString().padStart(2, '0')} remaining`;
+  
+        if (seconds <= 0) {
+          clearInterval(interval);
+          light.classList.remove('in-use');
+          light.classList.add('ready');
+          countdown.textContent = 'Ready for collection';
+          collectBtn.style.display = 'inline-block';
+        }
+      }, 1000);
+    }
+  /*collectioon status*/
+    function collecting(id) {
+      const light = document.getElementById(`light-${id}`);
+      const countdown = document.getElementById(`countdown-${id}`);
+      const collectBtn = document.getElementById(`collect-btn-${id}`);
+  
+      light.classList.remove('ready');
+      light.classList.add('available');
+      countdown.textContent = 'Available';
+      collectBtn.style.display = 'none';
+    }
+  
+    for (let i = 0; i < 8; i++) {
+      createMachine(i);
+    }
+
+  </script>
+</body>
+</html>

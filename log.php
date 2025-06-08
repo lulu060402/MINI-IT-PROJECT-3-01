@@ -1,33 +1,43 @@
 <?php
 session_start();
 
-$conn = mysqli_connect("localhost", "root", "", "logindb");
-
+// connect sql
+$conn = mysqli_connect("localhost", "root", "", "server_db");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$email = $_POST['email'];
+
+$email = mysqli_real_escape_string($conn, $_POST['email']);
 $password = $_POST['password'];
 
 
 $sql = "SELECT * FROM users WHERE email='$email'";
 $result = mysqli_query($conn, $sql);
 
+
 if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
+
     
     if (password_verify($password, $row['password'])) {
-        $_SESSION['user_id'] = $row['id'];
+        // yayy correct deyh
+        $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['username'] = $row['name'];
-
-        echo "Login successful! Welcome, " . $row['name'];
+        //go dashboard
+        header("Location: dashboard.php"); 
+        exit();
         
+
     } else {
-        echo "Wrong password.";
+        // wrong pass
+        header("Location: login.php?error=password");
+        exit();
     }
 } else {
-    echo "No user found with that email.";
+    // email cannot find
+    header("Location: login.php?error=email");
+    exit();
 }
 
 mysqli_close($conn);

@@ -1,0 +1,188 @@
+/* machine slots */
+body { 
+    font-family: Arial, sans-serif; 
+    padding: 20px;
+    line-height: 1.6;
+}
+.machine { 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.available { 
+    background: #e8f5e9; 
+    border: 1px solid #2e7d32; 
+}
+.in_use { 
+    background: #ffebee; 
+    border: 1px solid #c62828; 
+}
+
+/* dashboard  */
+.machines { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 15px; 
+}
+.control-link { 
+    display: inline-block; 
+    margin-top: 10px; 
+    color: #1565c0; 
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* controls  */
+.control-panel { 
+    max-width: 400px; 
+    margin: 40px auto; 
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.start-btn { 
+    background: #2e7d32; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer;
+    font-size: 16px;
+}
+.back-link { 
+    display: block; 
+    margin-top: 20px; 
+    color: #333;
+    text-decoration: none;
+}
+.collect-btn {
+    background: #ff9800; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.collect-btn:hover {
+    background: #e65100;
+}
+.ready_to_collect {
+    background: #fff3e0;  
+    border: 1px solid #fb8c00;  
+}
+/* duration */
+select#duration {
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.ready-text {
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.paused {
+    background: #fffde7;
+    border: 1px solid #ffc107;
+}
+
+.machine-controls {
+    margin-top: 10px;
+}
+
+.pause-btn {
+    background: #ffc107;
+    color: #000;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.resume-btn {
+    background: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.control-link-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.control-link {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #2196F3;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.machine {
+    transition: all 0.5s ease;
+}
+
+#machine-container {
+    min-height: 300px; /* prevent layout shift during updates */
+}
+.back-container {
+    margin-bottom: 20px;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #2980b9;
+}
+/* hostel block indicator */
+.hb-indicator {
+    background: #2c3e50;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 10px 0;
+    font-size: 0.9em;
+}
+
+/* ensure controls stay in block context */
+.machine-controls form {
+    display: inline-block;
+    margin: 5px 0;
+}
+/* status indicator */
+.hb-indicator {
+    background: #3498db;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    margin-left: 15px;
+    font-size: 0.9em;
+}

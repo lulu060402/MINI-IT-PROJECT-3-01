@@ -1,0 +1,106 @@
+/* container, coloring, buttons and font */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin: 20px 0;
+}
+
+.machines {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.machine {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 200px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.machine:hover {
+  transform: translateY(-5px);
+}
+
+.machine-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.status-light {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.status-light.available {
+  background-color: #4caf50; 
+}
+
+.status-light.in-use {
+  background-color: #e74c3c; 
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #2980b9; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #1f6391;
+}
+
+.countdown {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* resizing */
+@media (max-width: 600px) {
+  .machine {
+    width: 90%;
+  }
+}
+
+/*ready to collect*/
+.collect-btn {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.collect-btn:hover {
+  background-color: #1e874b;
+}
