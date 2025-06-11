@@ -1,549 +1,917 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hostel Laundry Booking</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <style>
-        .booking-card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-        .booking-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        .booking-card.selected {
-            border-color: #0d6efd;
-            background-color: #f8f9fa;
-        }
-        .time-slot {
-            cursor: pointer;
-            transition: all 0.2s;
-            border-radius: 5px;
-        }
-        .time-slot:hover {
-            background-color: #e9ecef;
-        }
-        .time-slot.selected {
-            background-color: #0d6efd;
-            color: white;
-        }
-        .time-slot.booked {
-            background-color: #f8d7da;
-            color: #842029;
-            cursor: not-allowed;
-        }
-        .hostel-block {
-            position: relative;
-            overflow: hidden;
-        }
-        .hostel-block::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-        }
-        .hostel-block.selected::after {
-            background: linear-gradient(135deg, rgba(13,110,253,0.2) 0%, rgba(13,110,253,0) 100%);
-        }
-        #bookingSummary {
-            position: sticky;
-            top: 20px;
-        }
-    </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LaundryRunner - Hostel Laundry Services</title>
+
+<style>
+
+:root {
+
+--primary: #00AFF0;
+
+--secondary:  #018CF1;
+
+--accent: #4fc3f7;
+
+--light: #f8f9fa;
+
+--dark: #212529;
+
+}
+
+body {
+
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+line-height: 1.6;
+
+color: var(--dark);
+
+background-color: #f5f5f5;
+
+margin: 0;
+
+padding: 0;
+
+}
+
+.container {
+
+max-width: 1200px;
+
+margin: 0 auto;
+
+padding: 20px;
+
+}
+
+header {
+
+background-color: #018CF1;
+
+color: white;
+
+padding: 20px 0;
+
+text-align: center;
+
+border-radius: 0 0 10px 10px;
+
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+}
+
+h1 {
+
+margin: 0;
+
+font-size: 2.5rem;
+
+}
+
+.tagline {
+
+font-style: italic;
+
+margin-top: 10px;
+
+}
+
+.service-cards {
+
+display: flex;
+
+flex-wrap: wrap;
+
+justify-content: center;
+
+gap: 30px;
+
+margin: 40px 0;
+
+}
+
+.card {
+
+background: white;
+
+border-radius: 10px;
+
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+width: 350px;
+
+padding: 25px;
+
+transition: transform 0.3s ease;
+
+}
+
+.card:hover {
+
+transform: translateY(-10px);
+
+}
+
+.card h2 {
+
+color: var(--secondary);
+
+border-bottom: 2px solid var(--accent);
+
+padding-bottom: 10px;
+
+margin-top: 0;
+
+}
+
+.price {
+
+font-size: 1.8rem;
+
+font-weight: bold;
+
+color: var(--primary);
+
+margin: 15px 0;
+
+}
+
+.btn {
+
+display: inline-block;
+
+background-color: var(--secondary);
+
+color: white;
+
+padding: 12px 25px;
+
+border: none;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+text-decoration: none;
+
+font-weight: bold;
+
+transition: background-color 0.3s;
+
+width: 100%;
+
+text-align: center;
+
+}
+
+.btn:hover {
+
+background-color: var(--primary);
+
+}
+
+.btn-runner {
+
+background-color: #28a745;
+
+}
+
+.btn-runner:hover {
+
+background-color: #218838;
+
+}
+
+.features {
+
+margin: 20px 0;
+
+}
+
+.feature-item {
+
+margin-bottom: 10px;
+
+display: flex;
+
+align-items: center;
+
+}
+
+.feature-item:before {
+
+content: "✓";
+
+color: #28a745;
+
+font-weight: bold;
+
+margin-right: 10px;
+
+}
+
+.modal {
+
+display: none;
+
+position: fixed;
+
+z-index: 1;
+
+left: 0;
+
+top: 0;
+
+width: 100%;
+
+height: 100%;
+
+background-color: rgba(0,0,0,0.5);
+
+}
+
+.modal-content {
+
+background-color: white;
+
+margin: 10% auto;
+
+padding: 30px;
+
+border-radius: 10px;
+
+width: 80%;
+
+max-width: 600px;
+
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+position: relative;
+
+}
+
+.close {
+
+position: absolute;
+
+top: 15px;
+
+right: 25px;
+
+font-size: 28px;
+
+font-weight: bold;
+
+color: #aaa;
+
+cursor: pointer;
+
+}
+
+.close:hover {
+
+color: var(--dark);
+
+}
+
+form {
+
+display: flex;
+
+flex-direction: column;
+
+gap: 15px;
+
+}
+
+.form-group {
+
+display: flex;
+
+flex-direction: column;
+
+}
+
+label {
+
+margin-bottom: 5px;
+
+font-weight: 600;
+
+}
+
+input, select, textarea {
+
+padding: 10px;
+
+border: 1px solid #ddd;
+
+border-radius: 5px;
+
+font-size: 16px;
+
+}
+
+.form-actions {
+
+display: flex;
+
+justify-content: flex-end;
+
+gap: 10px;
+
+margin-top: 20px;
+
+}
+
+.return-container {
+
+text-align: center;
+
+}
+
+.return-btn {
+
+display: inline-block;
+
+padding: 10px 20px;
+
+background-color: #00AFF0;
+
+color: white;
+
+text-decoration: none;
+
+border-radius: 5px;
+
+transition: background-color 0.3s;
+
+}
+
+.return-btn:hover {
+
+background-color: #018CF1;
+
+}
+
+.error {
+
+color: #dc3545;
+
+font-size: 0.875em;
+
+margin-top: 0.25rem;
+
+height: 18px;
+
+}
+
+input:invalid, select:invalid {
+
+border-color: #dc3545;
+
+}
+
+input:valid, select:valid {
+
+border-color: #28a745;
+
+}
+
+@media (max-width: 768px) {
+
+.service-cards {
+
+flex-direction: column;
+
+align-items: center;
+
+}
+
+.card {
+
+width: 90%;
+
+}
+
+}
+
+footer {
+
+background: linear-gradient(90deg,#2ec7ff 10%, #09b5f4 50%, #00bbff 70%,#018CF1 100%);
+
+color: #ffff;
+
+text-align: center;
+
+padding: 20px 40px;
+
+font-size: 15px;
+
+}
+
+</style>
+
 </head>
+
 <body>
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="text-center mb-5">
-                    <h1>Hostel Laundry Booking</h1>
-                    <p class="lead">Book your washer or dryer slot in advance</p>
-                </div>
-                
-                <!-- Progress Steps -->
-                <ul class="nav nav-pills nav-justified mb-5">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="step1-tab" data-bs-toggle="pill" href="#step1">1. Hostel Block</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" id="step2-tab" data-bs-toggle="pill" href="#step2">2. Date & Time</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" id="step3-tab" data-bs-toggle="pill" href="#step3">3. Service Type</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" id="step4-tab" data-bs-toggle="pill" href="#step4">4. Confirm</a>
-                    </li>
-                </ul>
-                
-                <!-- Booking Form -->
-                <form id="hostelLaundryForm">
-                    <!-- Step 1: Hostel Block Selection -->
-                    <div class="tab-pane fade show active" id="step1">
-                        <h3 class="mb-4">Select Your Hostel Block</h3>
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="card hostel-block h-100" data-block="1">
-                                    <div class="card-body text-center">
-                                        <h2>Block 1</h2>
-                                        
-                                        <div class="d-flex justify-content-center">
-                                            <span class="badge bg-primary me-2">Washers</span>
-                                            <span class="badge bg-warning text-dark"> Dryers</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card hostel-block h-100" data-block="2">
-                                    <div class="card-body text-center">
-                                        <h2>Block 2</h2>
-                                       
-                                        <div class="d-flex justify-content-center">
-                                            <span class="badge bg-primary me-2"> Washers</span>
-                                            <span class="badge bg-warning text-dark"> Dryers</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card hostel-block h-100" data-block="3">
-                                    <div class="card-body text-center">
-                                        <h2>Block 3</h2>
-                                        
-                                        <div class="d-flex justify-content-center">
-                                            <span class="badge bg-primary me-2">Washer</span>
-                                            <span class="badge bg-warning text-dark">Dryer</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card hostel-block h-100" data-block="4">
-                                    <div class="card-body text-center">
-                                        <h2>Block 4</h2>
-                                        
-                                        <div class="d-flex justify-content-center">
-                                            <span class="badge bg-primary me-2"> Washers</span>
-                                            <span class="badge bg-warning text-dark">Dryers</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <input type="hidden" name="hostel_block" id="hostelBlock">
-                        
-                        <div class="d-flex justify-content-end mt-4">
-                            <button type="button" class="btn btn-primary next-step" data-next="step2">Continue</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 2: Date & Time Selection -->
-                    <div class="tab-pane fade" id="step2">
-                        <h3 class="mb-4">Select Date & Time</h3>
-                        <!-- Date Picker -->
-                         <div class="mb-4">
-                            <label for="bookingDate" class="form-label">Select Date</label>
-                            <input type="text" class="form-control" id="bookingDate" placeholder="Select date">
-                        </div>
-                        <!-- Time Slots -->
-                        <div class="mb-4">
-                            <label class="form-label">Available Time Slots (1 hour slots)</label>
-                            <div class="row g-4" id="timeSlotsContainer">
-                                <!-- Time slots will be dynamically inserted here -->
-                            </div>
-                        </div>
-                        
-                        <input type="hidden" name="booking_time" id="bookingTime">
-                        
-                        <div class="d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-outline-secondary prev-step" data-prev="step1">Back</button>
-                            <button type="button" class="btn btn-primary next-step" data-next="step3">Continue</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 3: Service Type Selection -->
-<div class="tab-pane fade" id="step3">
-    <h3 class="mb-4">Select Service Type</h3> <!-- Reduced mb-4 to mb-3 -->
-    
-    <div class="row g-3"> <!-- Reduced g-4 to g-3 -->
-        <div class="col-md-6">
-            <div class="card booking-card" data-service="washer"> 
-                <div class="card-body text-center p-3"> <!-- Added p-3 for consistent padding -->
-                    <div class="mb-2"> <!-- Reduced mb-3 to mb-2 -->
-                    </div>
-                    <h4>Washing Machine</h4>
-                    <p class="text-muted mb-2">1 hour cycle</p> <!-- Added mb-2 -->
-                    <div class="d-flex justify-content-center mb-2"> <!-- Reduced mb-3 to mb-2 -->
-                        <span class="badge bg-success">RM3.00</span>
-                    </div>
-                    <ul class="text-start ps-3 mb-0"> <!-- Reduced ps-4 to ps-3, added mb-0 -->
-                        <li>Standard wash cycle</li>
-                        <li>Cold water setting</li>
-                        <li>Detergent included</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card booking-card" data-service="dryer"> <!-- Removed h-100 -->
-                <div class="card-body text-center p-3"> <!-- Added p-3 -->
-                    <div class="mb-2">
 
-                    </div>
-                    <h4>Dryer</h4>
-                    <p class="text-muted mb-2">45 minute cycle</p>
-                    <div class="d-flex justify-content-center mb-2">
-                        <span class="badge bg-success">RM2.50</span>
-                    </div>
-                    <ul class="text-start ps-3 mb-0">
-                        <li>Standard drying cycle</li>
-                        <li>Medium heat setting</li>
-                        <li>Automatic shutoff</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <input type="hidden" name="service_type" id="serviceType">
-    
-    <div class="d-flex justify-content-between mt-3"> <!-- Reduced mt-4 to mt-3 -->
-        <button type="button" class="btn btn-outline-secondary prev-step" data-prev="step2">Back</button>
-        <button type="button" class="btn btn-primary next-step" data-next="step4">Continue</button>
-    </div>
+<header>
+
+<div class="container">
+
+<h1>DRYFANSRunner</h1>
+
+<p class="tagline">We run so you don't have to!</p>
+
 </div>
-                    
-                    <!-- Step 4: Confirmation -->
-                    <div class="tab-pane fade" id="step4">
-                        <h3 class="mb-4">Confirm Your Booking</h3>
-                        
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Booking Summary</h5>
-                                <div id="bookingSummaryContent">
-                                    <!-- Summary will be dynamically inserted here -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <h5>Student Information</h5>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="studentName" placeholder="Full Name" required>
-                                <label for="studentName">Full Name</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="studentId" placeholder="Student ID" required>
-                                <label for="studentId">Student ID</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="studentEmail" placeholder="Email" required>
-                                <label for="studentEmail">Email</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-check mb-4">
-                            <input class="form-check-input" type="checkbox" id="termsAgreement" required>
-                            <label class="form-check-label" for="termsAgreement">
-                                I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
-                            </label>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-outline-secondary prev-step" data-prev="step3">Back</button>
-                            <button type="submit" class="btn btn-success">Confirm Booking</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Booking Summary Sidebar -->
-            <div class="col-lg-4">
-                <div class="card" id="bookingSummary">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0">Booking Summary</h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="dynamicSummary">
-                            <p class="text-muted">Your booking details will appear here as you make selections</p>
-                        </div>
-                        <hr>
-                        <div class="d-grid">
-                            <button class="btn btn-outline-primary" id="saveForLater">
-                                Save for Later
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Terms Modal -->
-    <div class="modal fade" id="termsModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Terms and Conditions</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h6>Laundry Booking Terms</h6>
-                    <ol>
-                        <li>Bookings must be made at least 2 hours in advance</li>
-                        <li>Each time slot is for 1 hour maximum</li>
-                        <li>Please remove your laundry promptly when done</li>
-                        <li>Late arrivals will lose their time slot</li>
-                        <li>RM5 penalty for leaving laundry unattended more than 15 minutes</li>
-                        <li>Report any machine issues immediately</li>
-                    </ol>
-                    <h6 class="mt-4">Cancellation Policy</h6>
-                    <p>Cancellations must be made at least 1 hour before the booking time or a penalty of RM2 will be applied to your student account.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
-                </div>
-            </div>
-        </div>
-    </div>
+</header>
 
-    <!-- Success Modal -->
-    <div class="modal fade" id="bookingSuccessModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title">Booking Confirmed!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                        </svg>
-                        <h4 class="mt-3">Your slot has been booked</h4>
-                    </div>
-                    <div class="alert alert-info">
-                        <strong>Booking Reference:</strong> <span id="bookingRef">HLB-<span id="bookingId"></span></span>
-                    </div>
-                    <p>We've sent the details to your student email. Please arrive on time for your slot.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Print Receipt</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize date picker
-            const datePicker = flatpickr("#bookingDate", {
-                minDate: "today",
-                maxDate: new Date().fp_incr(7), // 1 week from today
-                disable: [
-                    function(date) {
-                        // Disable weekends
-                        return (date.getDay() === 0 || date.getDay() === 6);
-                    }
-                ],
-                onChange: function(selectedDates, dateStr, instance) {
-                    updateTimeSlots();
-                    updateSummary();
-                }
-            });
+<div class="service-cards">
 
-            // Sample booked slots data (in real app, this would come from server)
-            const bookedSlots = {
-                "2023-11-15": ["09:00:00", "11:00:00"],
-                "2023-11-16": ["14:00:00", "15:00:00"]
-            };
+<div class="card">
 
-            // Hostel block selection
-            const hostelBlocks = document.querySelectorAll('.hostel-block');
-            hostelBlocks.forEach(block => {
-                block.addEventListener('click', function() {
-                    hostelBlocks.forEach(b => b.classList.remove('selected'));
-                    this.classList.add('selected');
-                    document.getElementById('hostelBlock').value = this.dataset.block;
-                    updateSummary();
-                });
-            });
+<h2>Lazy Laundry Service</h2>
 
-            // Service type selection
-            const serviceCards = document.querySelectorAll('.booking-card[data-service]');
-            serviceCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    serviceCards.forEach(c => c.classList.remove('selected'));
-                    this.classList.add('selected');
-                    document.getElementById('serviceType').value = this.dataset.service;
-                    updateSummary();
-                });
-            });
+<p>Too busy (or lazy) to deal with your laundry? Our runners will handle everything from pickup to delivery!</p>
 
-            // Step navigation
-            document.querySelectorAll('.next-step').forEach(button => {
-                button.addEventListener('click', function() {
-                    const nextStep = this.dataset.next;
-                    const currentTab = this.closest('.tab-pane').id;
-                    
-                    // Validate before proceeding
-                    if (currentTab === 'step1' && !document.getElementById('hostelBlock').value) {
-                        alert('Please select your hostel block');
-                        return;
-                    }
-                    
-                    if (currentTab === 'step2' && (!document.getElementById('bookingDate').value || !document.getElementById('bookingTime').value)) {
-                        alert('Please select a date and time slot');
-                        return;
-                    }
-                    
-                    if (currentTab === 'step3' && !document.getElementById('serviceType').value) {
-                        alert('Please select a service type');
-                        return;
-                    }
-                    
-                    // Switch tabs
-                    document.getElementById(currentTab + '-tab').classList.remove('active');
-                    document.getElementById(currentTab).classList.remove('show', 'active');
-                    
-                    document.getElementById(nextStep + '-tab').classList.remove('disabled');
-                    document.getElementById(nextStep + '-tab').classList.add('active');
-                    document.getElementById(nextStep).classList.add('show', 'active');
-                });
-            });
+<div class="price">RM3 per load</div>
 
-            document.querySelectorAll('.prev-step').forEach(button => {
-                button.addEventListener('click', function() {
-                    const prevStep = this.dataset.prev;
-                    const currentTab = this.closest('.tab-pane').id;
-                    
-                    // Switch tabs
-                    document.getElementById(currentTab + '-tab').classList.remove('active');
-                    document.getElementById(currentTab).classList.remove('show', 'active');
-                    
-                    document.getElementById(prevStep + '-tab').classList.add('active');
-                    document.getElementById(prevStep).classList.add('show', 'active');
-                });
-            });
+<div class="features">
 
-            // Form submission
-            document.getElementById('hostelLaundryForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Generate random booking ID
-                const bookingId = 'HLB-' + Math.floor(1000 + Math.random() * 9000);
-                document.getElementById('bookingId').textContent = bookingId;
-                
-                // Show success modal
-                const successModal = new bootstrap.Modal(document.getElementById('bookingSuccessModal'));
-                successModal.show();
-                
-                // In a real app, you would submit to server here
-                console.log('Booking submitted', {
-                    hostelBlock: document.getElementById('hostelBlock').value,
-                    date: document.getElementById('bookingDate').value,
-                    time: document.getElementById('bookingTime').value,
-                    service: document.getElementById('serviceType').value,
-                    studentInfo: {
-                        name: document.getElementById('studentName').value,
-                        id: document.getElementById('studentId').value,
-                        email: document.getElementById('studentEmail').value
-                    }
-                });
-            });
+<div class="feature-item">Pickup from your room</div>
 
-            // Update time slots based on selected date
-            function updateTimeSlots() {
-                const timeSlotsContainer = document.getElementById('timeSlotsContainer');
-                timeSlotsContainer.innerHTML = '';
-                
-                const selectedDate = document.getElementById('bookingDate').value;
-                if (!selectedDate) return;
-                
-                // Generate time slots (9AM to 5PM)
-                const startHour = 9;
-                const endHour = 17;
-                
-                for (let hour = startHour; hour < endHour; hour++) {
-                    const timeString = hour.toString().padStart(2, '0') + ':00:00';
-                    const displayTime = hour.toString().padStart(2, '0') + ':00 - ' + (hour + 1).toString().padStart(2, '0') + ':00';
-                    
-                    // Check if slot is booked
-                    const isBooked = bookedSlots[selectedDate] && bookedSlots[selectedDate].includes(timeString);
-                    
-                    const slotCol = document.createElement('div');
-                    slotCol.className = 'col-6 col-md-4 col-lg-3';
-                    
-                    const slotDiv = document.createElement('div');
-                    slotDiv.className = `time-slot p-2 text-center rounded ${isBooked ? 'booked' : ''}`;
-                    slotDiv.textContent = displayTime.slice(0, -3); // Remove seconds for display
-                    
-                    if (!isBooked) {
-                        slotDiv.addEventListener('click', function() {
-                            document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-                            this.classList.add('selected');
-                            document.getElementById('bookingTime').value = displayTime;
-                            updateSummary();
-                        });
-                    }
-                    
-                    slotCol.appendChild(slotDiv);
-                    timeSlotsContainer.appendChild(slotCol);
-                }
-            }
+<div class="feature-item">Wash, dry, and fold</div>
 
-            // Update booking summary
-            function updateSummary() {
-                const summaryContent = document.getElementById('dynamicSummary');
-                let html = '';
-                
-                const hostelBlock = document.getElementById('hostelBlock').value;
-                const bookingDate = document.getElementById('bookingDate').value;
-                const bookingTime = document.getElementById('bookingTime').value;
-                const serviceType = document.getElementById('serviceType').value;
-                
-                if (hostelBlock) {
-                    html += `<p><strong>Hostel Block:</strong> ${hostelBlock}</p>`;
-                }
-                
-                if (bookingDate) {
-                    html += `<p><strong>Date:</strong> ${new Date(bookingDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>`;
-                }
-                
-                if (bookingTime) {
-                    html += `<p><strong>Time:</strong> ${bookingTime}</p>`;
-                }
-                
-                if (serviceType) {
-                    const serviceName = serviceType === 'washer' ? 'Washing Machine' : 'Dryer';
-                    const servicePrice = serviceType === 'washer' ? 'RM3.00' : 'RM2.50';
-                    html += `<p><strong>Service:</strong> ${serviceName} (${servicePrice})</p>`;
-                }
-                
-                summaryContent.innerHTML = html || '<p class="text-muted">Your booking details will appear here as you make selections</p>';
-                
-                // Also update the confirmation summary
-                document.getElementById('bookingSummaryContent').innerHTML = html || '<p>No details selected yet</p>';
-            }
-            
-            // Initialize summary
-            updateSummary();
-        });
-    </script>
+<div class="feature-item">Delivery back to you</div>
+
+</div><br>
+
+<button id="lazyBtn" class="btn">Book Runner Service</button>
+
+</div>
+
+<div class="card">
+
+<h2>Become a Runner</h2>
+
+<p>Want to earn some extra cash? Sign up to be a laundry runner and help your fellow hostel mates!</p>
+
+<div class="price">Earn RM3 per delivery</div>
+
+<div class="features">
+
+<div class="feature-item">Flexible hours</div>
+
+<div class="feature-item">Work around your schedule</div>
+
+<div class="feature-item">Easy payments</div>
+
+<div class="feature-item">Help your community</div>
+
+</div>
+
+<button id="runnerBtn" class="btn btn-runner">Sign Up as Runner</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Lazy Service Modal -->
+
+<div id="lazyModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close">&times;</span>
+
+<h2>Book Lazy Laundry Service</h2>
+
+<form id="lazyForm" method="POST" action="booking_table.php" novalidate>
+
+<div class="form-group">
+
+<label for="name">Full Name</label>
+
+<input type="text" id="name" name="name" required minlength="2" maxlength="50">
+
+<div class="error" id="name-error"></div>
+
+</div>
+
+<div class="form-group">
+
+<label for="room">Hostel Room Number</label>
+
+<input type="text" id="room" name="room" required pattern="[A-Za-z0-9\-]+" title="Alphanumeric characters and hyphens only">
+
+<div class="error" id="room-error"></div>
+
+</div>
+
+<div class="form-group">
+
+<label for="phone">Phone Number</label>
+
+<input type="tel" id="phone" name="phone" required
+
+pattern="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$"
+
+title="Malaysian phone number format (e.g., 0123456789 or +60123456789)">
+
+<div class="error" id="phone-error"></div>
+
+</div>
+
+<div class="form-group">
+
+<label for="service_type">Service type</label>
+
+<select id="service_type" name="service_type" required>
+
+<option value="">Select service type</option>
+
+<option value="washer">washer</option>
+
+<option value="dryer">dryer</option>
+
+</select>
+
+<div class="error" id="service_type-error"></div>
+
+</div>
+
+<div class="form-group">
+
+<label for="payment_method">Preferred Payment Method</label>
+
+<select id="payment_method" name="payment_method" required>
+
+<option value="">Select payment method</option>
+
+<option value="Cash">Cash</option>
+
+</select>
+
+<div class="error" id="payment_method-error"></div>
+
+</div>
+
+<div class="form-actions">
+
+<button type="button" class="btn" onclick="document.getElementById('lazyModal').style.display='none'">Cancel</button>
+
+<button type="submit" class="btn">Confirm Booking</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- Runner Signup Modal -->
+
+<div id="runnerModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close">&times;</span>
+
+<h2>Sign Up as Laundry Runner</h2>
+
+<form id="runnerForm" method="post" action="process_runner.php">
+
+<div class="form-group">
+
+<label for="runner-name">Full Name</label>
+
+<input type="text" id="runner-name"  name="runner-name"required>
+
+</div>
+
+<div class="form-group">
+
+<label for="runner-email">Email</label>
+
+<input type="email" id="runner-email" name="runner-email"required>
+
+</div>
+
+<div class="form-group">
+
+<label for="runner-phone">Phone Number</label>
+
+<input type="tel" id="phone" name="phone" required
+
+pattern="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$"
+
+title="Malaysian phone number format (e.g., 0123456789 or +60123456789)">
+
+<div class="error" id="phone-error"></div>
+
+</div>
+
+<div class="form-group">
+
+<label for="runner-room">Hostel Room Number</label>
+
+<input type="text" id="runner-room" name="runner-room"required>
+
+</div>
+
+<div class="form-group">
+
+<label for="runner-availability">Availability</label>
+
+<select id="runner-availability" name="runner-availability[]" multiple>
+
+<option value="morning">Morning (8am-12pm)</option>
+
+<option value="afternoon">Afternoon (12pm-4pm)</option>
+
+<option value="evening">Evening (4pm-8pm)</option>
+
+<option value="late">Late Night (8pm-12am)</option>
+
+</select>
+
+</div>
+
+<div class="form-actions">
+
+<button type="button" class="btn" onclick="document.getElementById('runnerModal').style.display='none'">Cancel</button>
+
+<button type="submit" class="btn btn-runner">Submit Application</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="button-container" style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+
+<a href="dashboard.php" class="return-btn">Return</a>
+
+<a href="runner_login.php" class="return-btn" style="background-color: #28a745;">View Task</a>
+
+</div>
+
+<footer>
+
+<p>Copyright &copy; 2025 DryFans. All rights reserved.  <a href="termscondition.html">Terms And Conditions</a></p>
+
+</footer>
+
+<script>
+
+// Modal handling
+
+const lazyModal = document.getElementById('lazyModal');
+
+const runnerModal = document.getElementById('runnerModal');
+
+const lazyBtn = document.getElementById('lazyBtn');
+
+const runnerBtn = document.getElementById('runnerBtn');
+
+const spans = document.getElementsByClassName('close');
+
+lazyBtn.onclick = () => lazyModal.style.display = "block";
+
+runnerBtn.onclick = () => runnerModal.style.display = "block";
+
+spans[0].onclick = () => lazyModal.style.display = "none";
+
+spans[1].onclick = () => runnerModal.style.display = "none";
+
+window.onclick = (event) => {
+
+if (event.target == lazyModal) lazyModal.style.display = "none";
+
+if (event.target == runnerModal) runnerModal.style.display = "none";
+
+};
+
+// Form validation and submission
+
+document.getElementById('lazyForm').addEventListener('submit', async (e) => {
+
+e.preventDefault();
+
+// Clear previous errors
+
+document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+// Validate fields
+
+const fields = [
+
+{ id: 'name', validate: validateName },
+
+{ id: 'room', validate: validateRoom },
+
+{ id: 'phone', validate: validatePhone },
+
+{ id: 'service_type', validate: validateSelect },
+
+{ id: 'payment_method', validate: validateSelect }
+
+];
+
+let isValid = true;
+
+fields.forEach(field => {
+
+const element = document.getElementById(field.id);
+
+const errorElement = document.getElementById(`${field.id}-error`);
+
+const { valid, message } = field.validate(element);
+
+if (!valid) {
+
+errorElement.textContent = message;
+
+isValid = false;
+
+}
+
+});
+
+if (!isValid) return;
+
+// Submit form
+
+try {
+
+const response = await fetch('booking_table.php', {
+
+method: 'POST',
+
+body: new FormData(e.target)
+
+});
+
+const data = await response.json();
+
+if (!response.ok) {
+
+throw new Error(data.message || 'Server error');
+
+}
+
+alert(data.message);
+
+lazyModal.style.display = "none";
+
+e.target.reset();
+
+} catch (error) {
+
+console.error('Submission error:', error);
+
+alert(error.message || 'Failed to submit. Please try again.');
+
+}
+
+});
+
+// Validation functions
+
+function validateName(element) {
+
+const value = element.value.trim();
+
+if (!value) return { valid: false, message: 'Name is required' };
+
+if (value.length < 2) return { valid: false, message: 'Name must be at least 2 characters' };
+
+return { valid: true };
+
+}
+
+function validateRoom(element) {
+
+const value = element.value.trim();
+
+if (!value) return { valid: false, message: 'Room number is required' };
+
+if (!/^[A-Za-z0-9-]+$/.test(value)) {
+
+return { valid: false, message: 'Only alphanumeric characters and hyphens allowed' };
+
+}
+
+return { valid: true };
+
+}
+
+function validatePhone(element) {
+
+const value = element.value.trim();
+
+const phoneRegex = /^(\+?6?01)[0-46-9]-*[0-9]{7,8}$/;
+
+if (!value) return { valid: false, message: 'Phone number is required' };
+
+if (!phoneRegex.test(value)) {
+
+return { valid: false, message: 'Please enter a valid Malaysian phone number' };
+
+}
+
+return { valid: true };
+
+}
+
+function validateSelect(element) {
+
+if (!element.value) return { valid: false, message: 'This field is required' };
+
+return { valid: true };
+
+}
+
+// Real-time phone validation
+
+document.getElementById('phone').addEventListener('input', function() {
+
+const errorElement = document.getElementById('phone-error');
+
+const { valid, message } = validatePhone(this);
+
+errorElement.textContent = valid ? '' : message;
+
+});
+
+// Runner form handling
+
+// Replace your current runner form handler with this:
+
+document.getElementById('runnerForm').addEventListener('submit', async (e) => {
+
+e.preventDefault();
+
+try {
+
+const formData = new FormData(e.target);
+
+// Add validation if needed here
+
+const response = await fetch('booking_table.php', {
+
+method: 'POST',
+
+body: formData
+
+});
+
+const data = await response.json();
+
+if (data.success) {
+
+alert(data.message);
+
+runnerModal.style.display = "none";
+
+e.target.reset();
+
+} else {
+
+throw new Error(data.message);
+
+}
+
+} catch (error) {
+
+console.error('Error:', error);
+
+alert(error.message || 'Failed to submit application');
+
+}
+
+});
+
+</script>
+
 </body>
+
 </html>

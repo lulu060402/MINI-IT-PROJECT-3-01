@@ -114,7 +114,7 @@ $mysqli->close();
             <ul>
                 <li><a href="dashboard.php">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="report.html">Support</a></li>
+                <li><a href="report.php">Support</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>

@@ -11,21 +11,17 @@
 
 body, html {
   height: 100%;
-
 }
 
 body {
-
-  background: url('signupfotoblurrr.jpg')no-repeat center fixed;
+  background: url('signupfotoblurrr.jpg') no-repeat center fixed;
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 /* whole box */
-
 .container {
   display: flex;
   width: 100%;
@@ -36,76 +32,68 @@ body {
   color: #FFFFFF;
   border-radius: 30px;
   overflow: hidden;
-
-
 }
 
 /* left tit */
-
 .left {
   flex: 1;
-  padding:200px;
+  padding: 200px;
   align-content: center;
-  background: url('signupfoto.jpg') no-repeat ;
- 
+  background: url('signupfoto.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .left h1 {
-  font-size :50px;
+  font-size: 50px;
   font-weight: 900;
   margin-bottom: 20px;
   line-height: 1.2;
-  color:#ffffff ;
+  color: #ffffff;
 }
 
 .left p {
-  font-size :15px;
-  color:#e5e5e5 ;
+  font-size: 15px;
+  color: #e5e5e5;
   text-shadow: 10px 10px 10px #111111;
 }
 
 /*right tit*/
-
-.right{
-
-  flex:1;
-  padding:90px;
-  background:rgba(0, 0, 0, 0.7) ;
-
+.right {
+  flex: 1;
+  padding: 90px;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .right h1 {
-
   margin-top: 20px;
   margin-bottom: 20px;
-  font-weight: 900 ;
+  font-weight: 900;
 }
 
 .input-field {
-  margin-bottom:22px;
+  margin-bottom: 22px;
 }
 
-.input-field input{
-
+.input-field input {
   width: 80%;
   background: transparent;
   border: none;
   padding: 15px;
   color: white;
-  border-bottom:2px solid #d2d0d0;
-  outline:none;
+  border-bottom: 2px solid #d2d0d0;
+  outline: none;
   font-size: 14px;
 }
 
 .input-field input::placeholder {
-  color: #ffffff ;
+  color: #ffffff;
 }
 
 /* button */
-
 .signup-btn {
-  background-color: #00AFF0 ;
-  color: #FFFFFF ;
+  background-color: #00AFF0;
+  color: #FFFFFF;
   padding: 15px;
   border: none;
   width: 80%;
@@ -118,7 +106,7 @@ body {
 }
 
 .signup-btn:hover {
-  background-color: #018CF1 ;
+  background-color: #018CF1;
 }
 
 .login {
@@ -138,4 +126,119 @@ body {
 
 .errorcon {
   margin-bottom: 5px;
+}
+
+/* Responsive Rules :D */
+@media screen and (max-width: 1200px) {
+  .container {
+    max-height: none;
+    border-radius: 20px;
+  }
+  
+  .left {
+    padding: 150px;
+  }
+  
+  .right {
+    padding: 60px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .left h1 {
+    font-size: 40px;
+  }
+  
+  .left {
+    padding: 100px;
+  }
+  
+  .right {
+    padding: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    max-height: none;
+    height: auto;
+    margin: 20px;
+  }
+  
+  .left, .right {
+    flex: none;
+    width: 100%;
+    padding: 60px 40px;
+  }
+  
+  .left {
+    background-position: center;
+    text-align: center;
+  }
+  
+  .left h1 {
+    font-size: 36px;
+  }
+  
+  .input-field input,
+  .signup-btn {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  body {
+    background-position-x: left;
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+  
+  .container {
+    margin: 10px;
+    border-radius: 15px;
+  }
+  
+  .left, .right {
+    padding: 40px 20px;
+  }
+  
+  .left h1 {
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .left p {
+    font-size: 13px;
+  }
+  
+  .right h1 {
+    font-size: 24px;
+    margin: 15px 0;
+  }
+  
+  .input-field input {
+    padding: 12px;
+    font-size: 13px;
+  }
+  
+  .signup-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .login {
+    font-size: 12px;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .left h1 {
+    font-size: 26px;
+  }
+  
+  .left p {
+    font-size: 12px;
+  }
 }
