@@ -85,6 +85,7 @@
     <div class="admin-nav">
         <a href="admin_report.php">Reports Dashboard</a>
         <a href="control_panel.php">Machines Control</a>
+        <a href="runner_management.php">Runner management</a>
     </div>
 
     <div class="container">
