@@ -5,7 +5,8 @@ ini_set('display_errors', 1);
 session_start();
 
 $machine_id = isset($_POST['id']) ? intval($_POST['id']) : 0;
-$hb = isset($_POST['hb']) ? intval($_POST['hb']) : 1;
+$current_hb = isset($_POST['hb']) ? intval($_POST['hb']) : (isset($_GET['hb']) ? intval($_GET['hb']) : 1);
+$redirect_page = isset($_POST['redirect']) ? $_POST['redirect'] : 'control_panel';
 
 if ($machine_id > 0) {
     $machine = getMachine($machine_id);
@@ -39,6 +40,12 @@ if ($machine_id > 0) {
     collectMachine($machine_id);
 }
 
-header("Location: control_panel.php?hb=$hb");
+// Determine redirect destination
+$redirect_url = match($redirect_page) {
+    'control' => "control.php?id=$machine_id&hb=$current_hb",
+    default => "control_panel.php?id=$machine_id&hb=$current_hb"
+};
+
+header("Location: $redirect_url");
 exit;
 ?>
