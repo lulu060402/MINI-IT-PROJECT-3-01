@@ -22,7 +22,7 @@ $current_hb = isset($_GET['hb']) ? intval($_GET['hb']) : 1;
         <?php if (isset($_SESSION['user_id'])): ?>
             Your Points: <?= getCurrentPoints() ?>
         <?php else: ?>
-            Guest Mode - Points not tracked
+            Admin Control Panel
         <?php endif; ?>
     </div>
 
