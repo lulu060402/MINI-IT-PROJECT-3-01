@@ -166,4 +166,27 @@ function getCurrentPoints() {
     }
     return "Not logged in";
 }
+
+function createReport($data) {
+    global $db;
+    
+    // Prepare SQL statement
+    $stmt = $db->prepare("INSERT INTO reports 
+                         (machine_id, problem_type, description, urgency, status, screenshot_path, report_date) 
+                         VALUES (?, ?, ?, ?, ?, ?, NOW())");
+    
+    // Bind parameters
+    $stmt->bind_param(
+        "isssss", 
+        $data['machine_id'],
+        $data['problem_type'],
+        $data['description'],
+        $data['urgency'],
+        $data['status'],
+        $data['screenshot_path']
+    );
+    
+    // Execute and return result
+    return $stmt->execute();
+}
 ?>

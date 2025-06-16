@@ -190,6 +190,20 @@ $machine = $machine_id > 0 ? getMachine($machine_id) : null;
         .back-button:hover {
             background-color: #5a6268;
         }
+        .photo-upload {
+            margin-bottom: 15px;
+        }
+        .photo-upload label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .photo-upload input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
         /* Responsive rules */
         @media screen and (max-width: 600px) {
@@ -251,7 +265,7 @@ $machine = $machine_id > 0 ? getMachine($machine_id) : null;
             <div class="hb-indicator">Hostel Block <?= $current_hb ?></div>
             
             <?php if (isset($_GET['error'])): ?>
-                <div class="error-message">
+                <div class="error-message" style="color: #ff4444; padding: 10px; margin-bottom: 20px;">
                     Error: <?= htmlspecialchars($_GET['error']) ?>
                 </div>
             <?php endif; ?>
@@ -430,10 +444,14 @@ $machine = $machine_id > 0 ? getMachine($machine_id) : null;
         switch(machine.status) {
             case 'ready_to_collect':
                 html = `
-                    <form method="POST" action="collect.php">
+                    <form method="POST" action="collect.php" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="${machine.id}">
                         <input type="hidden" name="hb" value="${hb}">
                         <input type="hidden" name="redirect" value="control">
+                        <div class="photo-upload">
+                            <label for="collection_photo">Upload Collection Proof:</label>
+                            <input type="file" name="collection_photo" id="collection_photo" required accept="image/*">
+                        </div>
                         <button class="collect-btn">Collect Clothes</button>
                     </form>
                 `;
@@ -515,10 +533,14 @@ function getControlButtons($machine, $hb) {
     $status = $machine['display_status'];
     ?>
     <?php if ($status == 'ready_to_collect'): ?>
-        <form method="POST" action="collect.php">
+        <form method="POST" action="collect.php" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $id ?>">
             <input type="hidden" name="hb" value="<?= $hb ?>">
             <input type="hidden" name="redirect" value="control">
+            <div class="photo-upload">
+                <label for="collection_photo">Upload Collection Proof:</label>
+                <input type="file" name="collection_photo" id="collection_photo" required accept="image/*">
+            </div>
             <button class="collect-btn">Collect Clothes</button>
         </form>
     <?php elseif ($status == 'available'): ?>

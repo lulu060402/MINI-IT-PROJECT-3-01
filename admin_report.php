@@ -109,24 +109,27 @@
                     <th>Date</th>
                     <th>Type</th>
                     <th>Description</th>
+                    <th>Machine</th>
                     <th>Urgency</th>
                     <th>Status</th>
                     <th>Screenshot</th>
+                    <th>Collection Proof</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-
-                $sql = "SELECT * FROM reports 
+                $sql = "SELECT r.*, m.name as machine_name 
+                        FROM reports r
+                        LEFT JOIN machines m ON r.machine_id = m.id
                         ORDER BY 
-                            CASE WHEN status = 'resolved' THEN 1 ELSE 0 END,
-                            CASE urgency
+                            CASE WHEN r.status = 'resolved' THEN 1 ELSE 0 END,
+                            CASE r.urgency
                                 WHEN 'high' THEN 1
                                 WHEN 'medium' THEN 2
                                 WHEN 'low' THEN 3
                             END,
-                            report_date DESC";
+                            r.report_date DESC";
                 
                 $reports = $db->query($sql);
                 while($report = $reports->fetch_assoc()):
@@ -135,6 +138,7 @@
                     <td><?= date('M j, Y H:i', strtotime($report['report_date'])) ?></td>
                     <td><?= htmlspecialchars($report['problem_type']) ?></td>
                     <td><?= htmlspecialchars($report['description']) ?></td>
+                    <td><?= !empty($report['machine_name']) ? htmlspecialchars($report['machine_name']) : '-' ?></td>
                     <td><?= ucfirst($report['urgency']) ?></td>
                     <td class="status-<?= $report['status'] ?>">
                         <?= ucfirst(str_replace('_', ' ', $report['status'])) ?>
@@ -148,6 +152,20 @@
                                 <img src="<?= htmlspecialchars($report['screenshot_path']) ?>" 
                                      class="screenshot-preview"
                                      alt="Report screenshot">
+                            </a>
+                        <?php else: ?>
+                            <span class="no-screenshot">-</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if(!empty($report['collection_photo'])): ?>
+                            <a href="<?= htmlspecialchars($report['collection_photo']) ?>" 
+                               class="screenshot-link" 
+                               target="_blank"
+                               title="View collection proof">
+                                <img src="<?= htmlspecialchars($report['collection_photo']) ?>" 
+                                     class="screenshot-preview"
+                                     alt="Collection proof">
                             </a>
                         <?php else: ?>
                             <span class="no-screenshot">-</span>
