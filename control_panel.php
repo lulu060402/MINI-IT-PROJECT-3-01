@@ -9,6 +9,41 @@ $current_hb = isset($_GET['hb']) ? intval($_GET['hb']) : 1;
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<style>
+    .hb-button {
+        background-color:rgb(62, 147, 216);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        margin: 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+</style>
+
+<div style="margin: 20px;">
+    <form action="control_panel.php" method="get" style="display: inline;">
+        <input type="hidden" name="hb" value="1">
+        <button type="submit" class="hb-button">HB1</button>
+    </form>
+    <form action="control_panel.php" method="get" style="display: inline;">
+        <input type="hidden" name="hb" value="2">
+        <button type="submit" class="hb-button">HB2</button>
+    </form>
+    <form action="control_panel.php" method="get" style="display: inline;">
+        <input type="hidden" name="hb" value="3">
+        <button type="submit" class="hb-button">HB3</button>
+    </form>
+    <form action="control_panel.php" method="get" style="display: inline;">
+        <input type="hidden" name="hb" value="4">
+        <button type="submit" class="hb-button">HB4</button>
+    </form>
+</div>
+
     <h1>HB <?= $current_hb ?> Control Panel</h1>
     <div class="hb-indicator">Hostel Block <?= $current_hb ?></div>
     
